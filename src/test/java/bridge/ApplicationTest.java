@@ -3,15 +3,62 @@ package bridge;
 import static camp.nextstep.edu.missionutils.test.Assertions.assertRandomNumberInRangeTest;
 import static camp.nextstep.edu.missionutils.test.Assertions.assertSimpleTest;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.assertj.core.util.Lists.newArrayList;
 
+import bridge.view.InputView;
+import bridge.view.OutputView;
 import camp.nextstep.edu.missionutils.test.NsTest;
+
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
 import java.util.List;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 class ApplicationTest extends NsTest {
 
     private static final String ERROR_MESSAGE = "[ERROR]";
+
+    @ParameterizedTest
+    @ValueSource(strings = {"3","5","10","19"})
+    void 다리_길이_입력_정상테스트(String input) {
+        //given
+        InputStream inputStream = new ByteArrayInputStream(input.getBytes());
+        System.setIn(inputStream);
+        InputView inputView = new InputView();
+
+        //when
+        int result = inputView.readBridgeSize();
+
+        //then
+        assertThat(result).isEqualTo(Integer.parseInt(input));
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {"1", "21", "50", "abc"})
+    void 다리_길이_입력_예외발생테스트(String input) {
+        //given
+        InputStream inputStream = new ByteArrayInputStream(input.getBytes());
+        System.setIn(inputStream);
+        InputView inputView = new InputView();
+
+        //when
+        //then
+        assertThatThrownBy(inputView::readBridgeSize)
+                .isInstanceOf(IllegalArgumentException.class);
+    }
+    @Test
+    void 다리_출력_테스트() {
+        //given
+        List<String> userChoices = List.of("D", "U");
+        boolean canMove = true;
+        OutputView outputView = new OutputView();
+        //when
+        outputView.printMap(userChoices, canMove);
+        //then
+    }
 
     @Test
     void 다리_생성_테스트() {
