@@ -13,6 +13,7 @@ public class OutputView {
     private static final String MOVE_SUCCESS = "O";
     private static final String EMPTY = " ";
     private static final String MOVE_FAIL = "X";
+    private static final String ERROR_PREFIX = "[ERROR] ";
 
 
     /**
@@ -23,6 +24,10 @@ public class OutputView {
 
     public void printStart() {
         System.out.println("다리 건너기 게임을 시작합니다.");
+    }
+
+    public void printErrorMessage(String errorMessage) {
+        System.out.println(ERROR_PREFIX + errorMessage);
     }
 
     public void printMap(List<String> bridge, boolean doesLastMoveSucceed) {
