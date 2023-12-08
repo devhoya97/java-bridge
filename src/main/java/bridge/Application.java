@@ -1,6 +1,7 @@
 package bridge;
 
 import java.util.List;
+import java.util.Objects;
 
 public class Application {
     private static final InputView inputView = new InputView();
@@ -11,7 +12,7 @@ public class Application {
 
         List<String> bridge = getValidBridge(new BridgeMaker(new BridgeRandomNumberGenerator()));
         BridgeGame bridgeGame = new BridgeGame(bridge);
-        playOneGame(bridgeGame);
+        play(bridgeGame);
     }
 
     private static List<String> getValidBridge(BridgeMaker bridgeMaker) {
@@ -32,6 +33,23 @@ public class Application {
                 outputView.printErrorMessage(illegalArgumentException.getMessage());
             }
         }
+    }
+
+    private static void play(BridgeGame bridgeGame) {
+        int tryCount = 0;
+        while (true) {
+            bridgeGame.retry();
+            tryCount++;
+            playOneGame(bridgeGame);
+
+            if (bridgeGame.doesSucceed()) {
+                break;
+            }
+            if (Objects.equals(getValidGameCommand(), GameCommand.QUIT)) {
+                break;
+            }
+        }
+        outputView.printResult(bridgeGame.getHistory(), bridgeGame.doesSucceed(), tryCount);
     }
 
     private static void playOneGame(BridgeGame bridgeGame) {
