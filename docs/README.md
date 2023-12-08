@@ -38,6 +38,7 @@
     - [x] 게임 성공 여부를 출력한다.
     - [x] 총 시도한 횟수를 출력한다.
 - Application
+  - [x] 유효한 다리를 만든다.
   - [ ] [예외처리] 이동할 칸에 대한 입력이 U 또는 D가 아닐 경우 IllegalArgumentException을 발생시킨다.
   - [ ] [예외처리] 게임커맨드 입력이 R 또는 Q가 아닐 경우 IllegalArgumentException을 발생시킨다.
   - [ ] 다리를 끝까지 건너면 게임이 종료된다.
