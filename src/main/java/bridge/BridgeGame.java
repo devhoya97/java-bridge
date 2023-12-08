@@ -40,7 +40,7 @@ public class BridgeGame {
     }
 
     public boolean doesSucceed() {
-        return false;
+        return bridge.equals(history);
     }
 
     public int getTryCount() {
