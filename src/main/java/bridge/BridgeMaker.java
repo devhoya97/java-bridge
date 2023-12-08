@@ -44,6 +44,7 @@ public class BridgeMaker {
 
         if (number == Direction.DOWN.getValue()) {
             bridge.add(Direction.DOWN.getSignature());
+            return;
         }
         bridge.add(Direction.UP.getSignature());
     }
