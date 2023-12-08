@@ -6,10 +6,11 @@ public class Application {
 
     public static void main(String[] args) {
         BridgeGame bridgeGame = new BridgeGame(List.of("U","D","U"));
-        System.out.println(bridgeGame.move(Direction.UP));
-        System.out.println(bridgeGame.move(Direction.DOWN));
-        System.out.println(bridgeGame.move(Direction.UP));
+        BridgeMaker bridgeMaker = new BridgeMaker(new BridgeRandomNumberGenerator());
+        OutputView outputView = new OutputView();
 
-        System.out.println(bridgeGame.doesSucceed());
+        List<String> bridge = bridgeMaker.makeBridge(5);
+        System.out.println(bridge);
+        outputView.printMap(bridge, false);
     }
 }
