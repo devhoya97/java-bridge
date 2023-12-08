@@ -10,10 +10,8 @@ public class Application {
         outputView.printStart();
 
         List<String> bridge = getValidBridge(new BridgeMaker(new BridgeRandomNumberGenerator()));
-        System.out.println(bridge);
-
-        Direction direction = getValidDirection();
-        System.out.println(direction.getSignature());
+        BridgeGame bridgeGame = new BridgeGame(bridge);
+        playOneGame(bridgeGame);
     }
 
     private static List<String> getValidBridge(BridgeMaker bridgeMaker) {
@@ -32,6 +30,17 @@ public class Application {
                 return Direction.findDirection(inputView.readMoving());
             } catch (IllegalArgumentException illegalArgumentException) {
                 outputView.printErrorMessage(illegalArgumentException.getMessage());
+            }
+        }
+    }
+
+    private static void playOneGame(BridgeGame bridgeGame) {
+        while (!bridgeGame.doesSucceed()) {
+            boolean canMove = bridgeGame.move(getValidDirection());
+            outputView.printMap(bridgeGame.getHistory(), canMove);
+
+            if (!canMove) {
+                break;
             }
         }
     }

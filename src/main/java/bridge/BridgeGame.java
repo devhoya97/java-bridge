@@ -1,6 +1,7 @@
 package bridge;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
@@ -41,6 +42,10 @@ public class BridgeGame {
 
     public boolean doesSucceed() {
         return bridge.equals(history);
+    }
+
+    public List<String> getHistory() {
+        return Collections.unmodifiableList(history);
     }
 
     public int getTryCount() {
