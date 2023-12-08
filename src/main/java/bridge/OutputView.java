@@ -30,34 +30,34 @@ public class OutputView {
         System.out.println(ERROR_PREFIX + errorMessage);
     }
 
-    public void printMap(List<String> bridge, boolean doesLastMoveSucceed) {
-        printUpperMap(bridge, doesLastMoveSucceed);
-        printLowerMap(bridge, doesLastMoveSucceed);
+    public void printMap(List<String> map, boolean doesLastMoveSucceed) {
+        printUpperMap(map, doesLastMoveSucceed);
+        printLowerMap(map, doesLastMoveSucceed);
     }
 
-    private void printUpperMap(List<String> history, boolean doesLastMoveSucceed) {
+    private void printUpperMap(List<String> map, boolean doesLastMoveSucceed) {
         StringBuilder upperMap = new StringBuilder();
 
         upperMap.append(BRIDGE_START);
-        for (int bridgeIndex = 0; bridgeIndex < history.size() - 1; bridgeIndex++) {
-            addUpperMapStep(history.get(bridgeIndex), upperMap);
+        for (int mapIndex = 0; mapIndex < map.size() - 1; mapIndex++) {
+            addUpperMapStep(map.get(mapIndex), upperMap);
         }
-        addUpperMapLastStep(history.get(history.size() - 1), doesLastMoveSucceed, upperMap);
+        addUpperMapLastStep(map.get(map.size() - 1), doesLastMoveSucceed, upperMap);
         upperMap.append(BRIDGE_END);
 
         System.out.println(upperMap);
     }
 
-    private void addUpperMapStep(String historyStep, StringBuilder upperMap) {
-        if (Objects.equals(historyStep, Direction.UP.getSignature())) {
+    private void addUpperMapStep(String mapStep, StringBuilder upperMap) {
+        if (Objects.equals(mapStep, Direction.UP.getSignature())) {
             upperMap.append(MOVE_SUCCESS).append(BRIDGE_DELIMITER);
             return;
         }
         upperMap.append(EMPTY).append(BRIDGE_DELIMITER);
     }
 
-    private void addUpperMapLastStep(String historyStep, boolean doesLastMoveSucceed, StringBuilder upperMap) {
-        if (Objects.equals(historyStep, Direction.UP.getSignature())) {
+    private void addUpperMapLastStep(String mapStep, boolean doesLastMoveSucceed, StringBuilder upperMap) {
+        if (Objects.equals(mapStep, Direction.UP.getSignature())) {
             if (doesLastMoveSucceed) {
                 upperMap.append(MOVE_SUCCESS);
                 return;
@@ -68,29 +68,29 @@ public class OutputView {
         upperMap.append(EMPTY);
     }
 
-    private void printLowerMap(List<String> history, boolean doesLastMoveSucceed) {
+    private void printLowerMap(List<String> map, boolean doesLastMoveSucceed) {
         StringBuilder lowerMap = new StringBuilder();
 
         lowerMap.append(BRIDGE_START);
-        for (int bridgeIndex = 0; bridgeIndex < history.size() - 1; bridgeIndex++) {
-            addLowerMapStep(history.get(bridgeIndex), lowerMap);
+        for (int mapIndex = 0; mapIndex < map.size() - 1; mapIndex++) {
+            addLowerMapStep(map.get(mapIndex), lowerMap);
         }
-        addLowerMapLastStep(history.get(history.size() - 1), doesLastMoveSucceed, lowerMap);
+        addLowerMapLastStep(map.get(map.size() - 1), doesLastMoveSucceed, lowerMap);
         lowerMap.append(BRIDGE_END);
 
         System.out.println(lowerMap);
     }
 
-    private void addLowerMapStep(String historyStep, StringBuilder upperMap) {
-        if (Objects.equals(historyStep, Direction.DOWN.getSignature())) {
+    private void addLowerMapStep(String mapStep, StringBuilder upperMap) {
+        if (Objects.equals(mapStep, Direction.DOWN.getSignature())) {
             upperMap.append(MOVE_SUCCESS).append(BRIDGE_DELIMITER);
             return;
         }
         upperMap.append(EMPTY).append(BRIDGE_DELIMITER);
     }
 
-    private void addLowerMapLastStep(String historyStep, boolean doesLastMoveSucceed, StringBuilder upperMap) {
-        if (Objects.equals(historyStep, Direction.DOWN.getSignature())) {
+    private void addLowerMapLastStep(String mapStep, boolean doesLastMoveSucceed, StringBuilder upperMap) {
+        if (Objects.equals(mapStep, Direction.DOWN.getSignature())) {
             if (doesLastMoveSucceed) {
                 upperMap.append(MOVE_SUCCESS);
                 return;
@@ -106,6 +106,19 @@ public class OutputView {
      * <p>
      * 출력을 위해 필요한 메서드의 인자(parameter)는 자유롭게 추가하거나 변경할 수 있다.
      */
-    public void printResult(List<String> map) {
+    public void printResult(List<String> map, boolean doesSucceed, int tryCount) {
+        System.out.println("최종 게임 결과");
+        printMap(map, true);
+        printSuccess(doesSucceed);
+        System.out.println("총 시도한 횟수: " + tryCount);
+    }
+
+    private void printSuccess(boolean doesSucceed) {
+        String whetherSuccess = "실패";
+
+        if (doesSucceed) {
+            whetherSuccess = "성공";
+        }
+        System.out.println("\n게임 성공 여부: " + whetherSuccess);
     }
 }
