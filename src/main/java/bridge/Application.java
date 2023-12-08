@@ -35,4 +35,14 @@ public class Application {
             }
         }
     }
+
+    private static GameCommand getValidGameCommand() {
+        while (true) {
+            try {
+                return GameCommand.findGameCommand(inputView.readGameCommand());
+            } catch (IllegalArgumentException illegalArgumentException) {
+                outputView.printErrorMessage(illegalArgumentException.getMessage());
+            }
+        }
+    }
 }

@@ -40,8 +40,9 @@
 - Application
   - [x] 유효한 다리를 만든다.
   - [x] 유효한 이동 입력을 받는다.
-  - [x] [예외처리] 이동할 칸에 대한 입력이 U 또는 D가 아닐 경우 IllegalArgumentException을 발생시킨다.
-  - [ ] [예외처리] 게임커맨드 입력이 R 또는 Q가 아닐 경우 IllegalArgumentException을 발생시킨다.
+    - [x] [예외처리] 이동할 칸에 대한 입력이 U 또는 D가 아닐 경우 IllegalArgumentException을 발생시킨다.
+  - [x] 유효한 게임 시도 여부 커맨드를 받는다.
+    - [x] [예외처리] 게임커맨드 입력이 R 또는 Q가 아닐 경우 IllegalArgumentException을 발생시킨다.
   - [ ] 다리를 끝까지 건너면 게임이 종료된다.
   - [ ] 게임을 재시작하면 처음에 만든 다리를 그대로 사용한다.
   - [ ] 다리를 건너다 실패하면 게임을 재시작하거나 종료할 수 있다.
