@@ -36,10 +36,8 @@ public class Application {
     }
 
     private static void play(BridgeGame bridgeGame) {
-        int tryCount = 0;
         while (true) {
             bridgeGame.retry();
-            tryCount++;
             playOneGame(bridgeGame);
 
             if (bridgeGame.doesSucceed()) {
@@ -49,7 +47,7 @@ public class Application {
                 break;
             }
         }
-        outputView.printResult(bridgeGame.getHistory(), bridgeGame.doesSucceed(), tryCount);
+        outputView.printResult(bridgeGame.getHistory(), bridgeGame.doesSucceed(), bridgeGame.getTryCount());
     }
 
     private static void playOneGame(BridgeGame bridgeGame) {
