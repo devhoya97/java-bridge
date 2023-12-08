@@ -58,7 +58,37 @@ public class OutputView {
         upperMap.append(EMPTY);
     }
 
-    private void printLowerMap(List<String> bridge, boolean doesLastMoveSucceed) {
+    private void printLowerMap(List<String> history, boolean doesLastMoveSucceed) {
+        StringBuilder lowerMap = new StringBuilder();
+
+        lowerMap.append(BRIDGE_START);
+        for (int bridgeIndex = 0; bridgeIndex < history.size() - 1; bridgeIndex++) {
+            addLowerMapStep(history.get(bridgeIndex), lowerMap);
+        }
+        addLowerMapLastStep(history.get(history.size() - 1), doesLastMoveSucceed, lowerMap);
+        lowerMap.append(BRIDGE_END);
+
+        System.out.println(lowerMap);
+    }
+
+    private void addLowerMapStep(String historyStep, StringBuilder upperMap) {
+        if (Objects.equals(historyStep, Direction.DOWN.getSignature())) {
+            upperMap.append(MOVE_SUCCESS).append(BRIDGE_DELIMITER);
+            return;
+        }
+        upperMap.append(EMPTY).append(BRIDGE_DELIMITER);
+    }
+
+    private void addLowerMapLastStep(String historyStep, boolean doesLastMoveSucceed, StringBuilder upperMap) {
+        if (Objects.equals(historyStep, Direction.DOWN.getSignature())) {
+            if (doesLastMoveSucceed) {
+                upperMap.append(MOVE_SUCCESS);
+                return;
+            }
+            upperMap.append(MOVE_FAIL);
+            return;
+        }
+        upperMap.append(EMPTY);
     }
 
     /**
